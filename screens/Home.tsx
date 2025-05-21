@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -21,13 +21,21 @@ const Home: React.FC = () => {
       <Text style={styles.title}>🏍️ Mottu App</Text>
       <Text style={styles.subtitle}>Mapeamento inteligente de motos</Text>
 
-      <Button title="Cadastrar Moto" onPress={() => navigation.navigate('CadastroMoto')} />
-      <View style={{ height: 20 }} />
-      <Button title="Ver Motos Cadastradas" onPress={() => navigation.navigate('ListaMotos')} />
-      <View style={{ height: 20 }} />
-      <Button title="Mapa do Pátio" onPress={() => navigation.navigate('MapaPatio')} />
-      <View style={{ height: 20 }} />
-      <Button title="Configurações" onPress={() => navigation.navigate('Configuracoes')} />
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('CadastroMoto')}>
+        <Text style={styles.buttonText}>Cadastrar Moto</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ListaMotos')}>
+        <Text style={styles.buttonText}>Ver Motos Cadastradas</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MapaPatio')}>
+        <Text style={styles.buttonText}>Mapa do Pátio</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Configuracoes')}>
+        <Text style={styles.buttonText}>Configurações</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -35,21 +43,35 @@ const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F5F5F5',
+    padding: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
   },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#06C167',
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    marginBottom: 20,
-    color: '#555',
+    color: '#222222',
     textAlign: 'center',
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#06C167',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginVertical: 8,
+    width: '80%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 

@@ -5,7 +5,8 @@ const STORAGE_KEY = '@mottu:motos';
 export type Moto = {
   modelo: string;
   placa: string;
-  status?: string;
+  status: string;
+  posicao: string; 
 };
 
 export async function buscarMotos(): Promise<Moto[]> {
