@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, Dimensions } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -22,6 +22,7 @@ const CadastroMoto: React.FC = () => {
   const [status, setStatus] = useState('');
   const [posicao, setPosicao] = useState('');
   const navigation = useNavigation<NavigationProp>();
+  const screenWidth = Dimensions.get('window').width;
 
   const handleSalvar = async () => {
     if (!modelo.trim() || !placa.trim() || !status || !posicao) {
@@ -48,27 +49,27 @@ const CadastroMoto: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Cadastro de Moto</Text>
 
       <TextInput
         placeholder="Modelo da Moto"
         value={modelo}
         onChangeText={setModelo}
-        style={custom.input}
+        style={[custom.input, { width: screenWidth * 0.9 }]}
       />
       <TextInput
         placeholder="Placa"
         value={placa}
         onChangeText={setPlaca}
-        style={custom.input}
+        style={[custom.input, { width: screenWidth * 0.9 }]}
       />
 
       <Text style={custom.label}>Status da Moto</Text>
       <Picker
         selectedValue={status}
         onValueChange={setStatus}
-        style={custom.picker}
+        style={[custom.picker, { width: screenWidth * 0.9 }]}
       >
         <Picker.Item label="Selecione o status..." value="" enabled={false} />
         <Picker.Item label="Disponível" value="disponível" />
@@ -80,7 +81,7 @@ const CadastroMoto: React.FC = () => {
       <Picker
         selectedValue={posicao}
         onValueChange={setPosicao}
-        style={custom.picker}
+        style={[custom.picker, { width: screenWidth * 0.9 }]}
       >
         <Picker.Item label="Selecione a posição..." value="" enabled={false} />
         <Picker.Item label="A1" value="A1" />
@@ -310,14 +311,14 @@ const CadastroMoto: React.FC = () => {
         <Picker.Item label="O15" value="O15" />
       </Picker>
 
-      <TouchableOpacity style={styles.button} onPress={handleSalvar}>
+      <TouchableOpacity style={[styles.button, { width: screenWidth * 0.9 }]} onPress={handleSalvar}>
         <Text style={styles.buttonText}>Salvar Moto</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+      <TouchableOpacity style={[styles.button, { width: screenWidth * 0.9 }]} onPress={() => navigation.navigate('Home')}>
         <Text style={styles.buttonText}>Voltar para Home</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -328,7 +329,6 @@ const custom = StyleSheet.create({
     borderRadius: 6,
     padding: 12,
     marginBottom: 16,
-    width: '100%',
     backgroundColor: '#fff',
   },
   label: {
@@ -342,7 +342,6 @@ const custom = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 6,
     marginBottom: 16,
-    width: '100%',
     backgroundColor: '#f2f2f2',
   },
 });
