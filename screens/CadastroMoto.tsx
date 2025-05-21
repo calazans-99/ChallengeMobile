@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { salvarMoto } from '../utils/storage';
+import { salvarMoto, buscarMotos } from '../utils/storage';
 import { mottuColors, baseScreenStyles as styles } from '../styles/estilosMottu';
 
 type RootStackParamList = {
@@ -26,6 +26,12 @@ const CadastroMoto: React.FC = () => {
   const handleSalvar = async () => {
     if (!modelo.trim() || !placa.trim() || !status || !posicao) {
       Alert.alert('Campos obrigatórios', 'Preencha todos os campos corretamente!');
+      return;
+    }
+
+    const existentes = await buscarMotos();
+    if (existentes.find(m => m.posicao === posicao)) {
+      Alert.alert('Erro', 'Já existe uma moto nesta posição do pátio.');
       return;
     }
 
@@ -61,7 +67,7 @@ const CadastroMoto: React.FC = () => {
       <Text style={custom.label}>Status da Moto</Text>
       <Picker
         selectedValue={status}
-        onValueChange={(itemValue) => setStatus(itemValue)}
+        onValueChange={setStatus}
         style={custom.picker}
       >
         <Picker.Item label="Selecione o status..." value="" enabled={false} />
